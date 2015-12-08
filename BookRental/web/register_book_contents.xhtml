@@ -8,7 +8,15 @@
     </h:head>
     <h:body>
         <ui:composition>
-            <b>TODO 書籍登録</b>
+            <h:form>
+                <h:panelGrid columns="3">
+                    題名<h:inputText id="title" value="#{registerBookBean.title}"/>
+                    <h:message for="title" />
+                    著者<h:inputText id="author" value="#{registerBookBean.author}"/>
+                    <h:message for="author" />
+                </h:panelGrid>
+                <h:commandButton value="新規登録" action="${registerBookBean.next()}" />
+            </h:form>
         </ui:composition>
     </h:body>
 </html>
