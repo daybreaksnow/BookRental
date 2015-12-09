@@ -24,9 +24,8 @@ public class RegisterBookBean {
     @Size(max=250)
     private String author;
     
-    // XXX ここはprivateじゃだめ？
     @EJB
-    BookDao dao;
+    private BookDao dao;
 
     public String getTitle() {
         return title;

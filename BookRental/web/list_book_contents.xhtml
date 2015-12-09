@@ -2,13 +2,28 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
     <h:body>
         <ui:composition>
-            <b>TODO 書籍一覧</b>
+            書籍一覧<br/>
+            <h:form>
+                <h:dataTable value="#{listBookBean.all}" var="book" border="1">
+                    <h:column>
+                        <f:facet name="header">タイトル</f:facet>
+                        #{book.title}
+                    </h:column>                    
+                    <h:column>
+                       <f:facet name="header">著者名</f:facet>
+                        #{book.author}
+                    </h:column>
+                    <h:column><h:commandButton value="貸出"/></h:column>
+                    <h:column><h:commandButton value="返却"/></h:column>
+                </h:dataTable>
+            </h:form>
         </ui:composition>
     </h:body>
 </html>

@@ -6,9 +6,11 @@
 package dao;
 
 import entity.BrBook;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaQuery;
 
 /**
  *
@@ -22,5 +24,11 @@ public class BookDao {
     
     public void create(BrBook book){
         em.persist(book);
+    }
+    
+    public List<BrBook> findAll(){
+        CriteriaQuery criteria = em.getCriteriaBuilder().createQuery();
+        criteria.select(criteria.from(BrBook.class));
+        return em.createQuery(criteria).getResultList();
     }
 }
