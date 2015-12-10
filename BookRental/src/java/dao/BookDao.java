@@ -10,7 +10,10 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Order;
+import javax.persistence.criteria.Root;
 
 /**
  *
@@ -26,9 +29,17 @@ public class BookDao {
         em.persist(book);
     }
     
+    /**
+     * ID降順で返す
+     * @return 
+     */
     public List<BrBook> findAll(){
-        CriteriaQuery criteria = em.getCriteriaBuilder().createQuery();
-        criteria.select(criteria.from(BrBook.class));
-        return em.createQuery(criteria).getResultList();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<BrBook> query = cb.createQuery(BrBook.class);
+        Root<BrBook> root = query.from(BrBook.class);
+        // TODO メタモデルを使う
+        query.select(root)
+         .orderBy(cb.desc(root.get("bookId")));
+        return em.createQuery(query).getResultList();
     }
 }
