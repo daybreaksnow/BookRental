@@ -8,7 +8,17 @@
     </h:head>
     <h:body>
         <ui:composition>
-            <b>TODO ユーザ登録</b>
+                <h:form>
+                <h:panelGrid columns="3">
+                    ユーザコード<h:inputText id="userCode" value="#{registerUserBean.userCode}"/>
+                    <h:message for="userCode" />
+                    パスワード<h:inputSecret id="password" value="#{registerUserBean.password}"/>
+                    <h:message for="password" />
+                    ユーザ名<h:inputText id="userName" value="#{registerUserBean.userName}"/>
+                    <h:message for="userName" />
+                </h:panelGrid>
+                <h:commandButton value="新規登録" action="${registerUserBean.next()}" />
+            </h:form>
         </ui:composition>
     </h:body>
 </html>
