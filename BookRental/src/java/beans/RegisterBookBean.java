@@ -30,10 +30,10 @@ public class RegisterBookBean {
     @NotEmpty
     private String publisher;
     
-    @NotEmpty
+    @NotNull
     private Date publicationDate;
     
-    @NotEmpty
+    @NotNull
     @Min(1)
     private Integer totalNum;
     
