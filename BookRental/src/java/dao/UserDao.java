@@ -6,6 +6,7 @@
 package dao;
 
 import entity.BrUser;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -32,11 +33,12 @@ public class UserDao {
     
     public BrUser find(String userCode,String unencryptedPassword){
         String encryptedPassword = encryptPassword(unencryptedPassword);
-        BrUser user = em.createNamedQuery("User.forLogin", BrUser.class)
+        // getSingleResultだと結果が0件の場合に例外が出るのでgetResultList
+        List<BrUser> user = em.createNamedQuery(BrUser.QUERY_FOR_LOGIN, BrUser.class)
           .setParameter("userCode", userCode)//
           .setParameter("password",encryptedPassword)//
-          .getSingleResult();
-        return user;
+          .getResultList();
+        return !user.isEmpty() ? user.get(0) : null ;
     }
     
     public static String encryptPassword(String unencryptedPassword){

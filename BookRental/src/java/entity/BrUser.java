@@ -23,10 +23,12 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "br_user")
 @NamedQueries({
-  @NamedQuery(name = "User.forLogin", 
+  @NamedQuery(name = BrUser.QUERY_FOR_LOGIN, 
      query = "Select user from BrUser user where user.userCode = :userCode and user.password = :password"),
 })
 public class BrUser implements Serializable{
+    public static final String QUERY_FOR_LOGIN="forLogin";
+    
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "BR_USER_ID_SEQ_GEN")
     @SequenceGenerator(name="BR_USER_ID_SEQ_GEN",sequenceName="BR_USER_ID_SEQ",allocationSize = 1)

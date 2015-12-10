@@ -8,35 +8,61 @@ package beans;
 import dao.UserDao;
 import entity.BrUser;
 import javax.ejb.EJB;
-import javax.faces.bean.ViewScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * ログイン画面用バッキングビーン
+ *
  * @author T.IMAIZUMI
  * @since 2015/12/10
  */
 @Named
-@ViewScoped
+@RequestScoped
 public class LoginBean {
+
+    @NotEmpty
+    private String userCode;
+    
+    @NotEmpty
+    private String password;
+    
     @Inject
     private AuthHolder auth;
 
     @EJB
     private UserDao dao;
-    
-    public void login(String userCode, String password) {
 
-        // ここで認証処理を行うとする
+    public String getUserCode() {
+        return userCode;
+    }
+
+    public void setUserCode(String userCode) {
+        this.userCode = userCode;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
+    public String login() {
         BrUser user = dao.find(userCode, password);
-        if(user != null){
-            // 認証処理に成功したら認証情報を保存
-            this.auth.login(userCode);
+        // 認証に失敗したらログイン画面に戻す
+        if (user == null) {
+            return "login?faces-redirect=true";
         }
+        // 認証処理に成功したら認証情報を保存しトップページへ
+        this.auth.login(userCode);
+        return "index?faces-redirect=true";
     }
 
     public void logout() {
         this.auth.logout();
-    }  
+    }
 }
