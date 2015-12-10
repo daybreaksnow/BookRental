@@ -7,6 +7,8 @@ package beans;
 
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.ConfigurableNavigationHandler;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 /**
@@ -18,19 +20,32 @@ import javax.inject.Named;
 @SessionScoped
 public class AuthHolder implements Serializable{
     private String userCode;
-    private boolean authenticated;
     
     public void login(String userCode) {
         this.userCode = userCode;
-        this.authenticated = true;
     }
 
     public void logout() {
         this.userCode = null;
-        this.authenticated = false;
     }
 
     public String getUserCode() {
         return userCode;
+    }
+    
+    public boolean isLoggedIn(){
+        return userCode != null;
+    }
+    
+    /**
+     * ログイン状態でなければログイン画面に飛ばす
+     */
+    public void checkLogin(){
+        if (!isLoggedIn()) {
+            ConfigurableNavigationHandler handler = (ConfigurableNavigationHandler)
+                FacesContext.getCurrentInstance()
+                    .getApplication().getNavigationHandler();
+            handler.performNavigation("login");
+        }
     }
 }

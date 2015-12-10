@@ -13,6 +13,9 @@
             <h:link outcome="index" value="一覧"/><br/>
             <h:link outcome="register_book" value="書籍登録"/><br/>
             <h:link outcome="register_user" value="ユーザ登録"/><br/>
+            <h:form>
+                <h:commandLink action="${loginBean.logout()}" >ログアウト</h:commandLink>
+            </h:form>
         </ui:composition>
     </h:body>
 </html>

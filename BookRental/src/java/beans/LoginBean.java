@@ -62,7 +62,8 @@ public class LoginBean {
         return "index?faces-redirect=true";
     }
 
-    public void logout() {
+    public String logout() {
         this.auth.logout();
+        return "login?faces-redirect=true";
     }
 }
