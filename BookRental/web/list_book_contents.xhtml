@@ -38,6 +38,14 @@
                        <f:facet name="header">貸出数</f:facet>
                         #{book.reservedNum}
                     </h:column>
+                    <h:column>
+                       <f:facet name="header">残数</f:facet>
+                        #{book.totalNum-book.reservedNum}
+                    </h:column>
+                    <h:column>
+                       <f:facet name="header">貸出者</f:facet>
+                        TODO
+                    </h:column>
                     <h:column><h:commandButton value="貸出"/></h:column>
                     <h:column><h:commandButton value="返却"/></h:column>
                 </h:dataTable>
