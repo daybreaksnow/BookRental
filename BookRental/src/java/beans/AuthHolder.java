@@ -8,8 +8,10 @@ package beans;
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.ConfigurableNavigationHandler;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * ログイン情報の保持クラス
@@ -23,6 +25,11 @@ public class AuthHolder implements Serializable{
     
     public void login(String userCode) {
         this.userCode = userCode;
+        // Session Fixation対策。セッション id を変更
+        // http://d.hatena.ne.jp/hagi44/20150122/1421929254
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
+        request.changeSessionId();
     }
 
     public void logout() {
