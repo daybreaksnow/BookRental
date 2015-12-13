@@ -10,6 +10,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  * ユーザ用DAO
@@ -39,6 +40,12 @@ public class UserDao {
           .setParameter("password",encryptedPassword)//
           .getResultList();
         return !user.isEmpty() ? user.get(0) : null ;
+    }
+    
+    public BrUser find(String userCode){
+        TypedQuery<BrUser> query = this.em.createQuery("SELECT user FROM BrUser user where user.userCode = :userCode", BrUser.class);
+        query.setParameter("userCode",userCode);
+        return query.getSingleResult();
     }
     
     public static String encryptPassword(String unencryptedPassword){

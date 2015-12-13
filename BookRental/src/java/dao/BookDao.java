@@ -42,4 +42,13 @@ public class BookDao {
          .orderBy(cb.desc(root.get("bookId")));
         return em.createQuery(query).getResultList();
     }
+    
+    public BrBook find(Long bookId){
+        return em.find(BrBook.class, bookId);
+    }
+
+    public void update(BrBook book) {
+        em.merge(book);
+    }
+    
 }

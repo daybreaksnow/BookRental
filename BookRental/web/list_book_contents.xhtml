@@ -46,8 +46,8 @@
                        <f:facet name="header">貸出者</f:facet>
                         TODO
                     </h:column>
-                    <h:column><h:commandButton value="貸出"/></h:column>
-                    <h:column><h:commandButton value="返却"/></h:column>
+                    <h:column><h:commandButton value="貸出" action="${listBookBean.rentalBook(book.bookId)}"/></h:column>
+                    <h:column><h:commandButton value="返却" action="${listBookBean.returnBook(book.bookId)}"/></h:column>
                 </h:dataTable>
             </h:form>
         </ui:composition>

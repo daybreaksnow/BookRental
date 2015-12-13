@@ -2,11 +2,15 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -41,6 +45,9 @@ public class BrBook implements Serializable{
     
     @Column(name="reserved_num")
     private Integer reservedNum;
+    
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "book")
+    private Set<BrRental> rentals = new LinkedHashSet<BrRental>();
     
     @Column(name="create_date")
     @Temporal(TemporalType.TIMESTAMP)
@@ -112,6 +119,14 @@ public class BrBook implements Serializable{
         this.reservedNum = reservedNum;
     }
 
+    public Set<BrRental> getRentals() {
+        return rentals;
+    }
+
+    public void setRentals(Set<BrRental> rentals) {
+        this.rentals = rentals;
+    }
+    
     public Date getCreateDate() {
         return createDate;
     }
