@@ -11,6 +11,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -24,6 +25,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class LoginBean {
 
     @NotEmpty
+    @Size(min=2,max=8)
     private String userCode;
     
     @NotEmpty
